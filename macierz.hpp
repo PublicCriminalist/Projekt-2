@@ -47,6 +47,15 @@ public:
 	};
 	//operator kopiowania
 	Macierz<T>& operator=(const Macierz<T>& M1);
+	//konstruktor przenoszπcy
+	Macierz<T>(Macierz<T>&& M1) noexcept:a(0),b(0),M(nullptr) {
+		a = M1.a; b = M1.b;
+		M = M1.M;
+		M1.M = nullptr;
+		M1.a = 0; M1.b = 0;
+	};
+	//operator przenoszenia
+	Macierz<T>& operator=(Macierz<T>&& M1);
 	//funkcje zaprzyjaünione
 	friend Macierz<T> operator+<T>(const Macierz<T>& M1, const Macierz<T>& M2);
 	friend Macierz<T> operator-<T>(const Macierz<T>& M1, const Macierz<T>& M2);
@@ -125,13 +134,27 @@ private:
 //definicja operatora kopiujπcego
 template<typename T> Macierz<T>& Macierz<T>::operator=(const Macierz<T>& M1)
 {
-	if (this == M1) return *this;
+	if (this == &M1) return *this;
+	for (int i = 0; i < a; i++) delete[] M[i];
+	delete[] M;
 	a = M1.a; b = M1.b;
 	M = new T * [a];
 	for (int i = 0; i < a; i++) M[i] = new T[b];
 	for (int i = 0; i < a; i++) {
 		for (int j = 0; j < b; j++) M[i][j] = M1.M[i][j];
 	}
+	return *this;
+}
+//definicja operatora przenoszπcego
+template<typename T> Macierz<T>& Macierz<T>::operator=(Macierz<T>&& M1)
+{
+	if (this == &M1) return *this;
+	for (int i = 0; i < a; i++) delete[] M[i];
+	delete[] M;
+	a = M1.a; b = M1.b;
+	M = M1.M;
+	M1.M = nullptr;
+	M1.a = 0; M1.b = 0;
 	return *this;
 }
 //dodawanie
