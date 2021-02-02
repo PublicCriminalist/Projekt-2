@@ -1,0 +1,3 @@
+﻿  projekt2.cpp
+C:\Users\Saelic\source\repos\projekt2\macierz.hpp(191): warning C4715: 'operator*<double>': not all control paths return a value
+  projekt2.vcxproj -> C:\Users\Saelic\source\repos\projekt2\Debug\projekt2.exe

@@ -1,0 +1,2 @@
+C:\Users\Saelic\source\repos\projekt2\Debug\projekt2.exe
+C:\Users\Saelic\source\repos\projekt2\Debug\projekt2.pdb
